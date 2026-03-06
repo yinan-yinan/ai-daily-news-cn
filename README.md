@@ -14,7 +14,7 @@
 
 ## 安装
 
-支持 Claude Code、Codex、Gemini CLI、Cursor 等 37+ 种 AI 编码助手。
+已验证支持 Claude Code 和 Codex。理论上兼容所有支持 `npx skills` 的 AI 编码助手。
 
 ```bash
 npx skills add yinan-yinan/ai-daily-news-cn
@@ -93,13 +93,11 @@ ai-daily-news-cn/
 
 本 Skill 采用 **agent-agnostic** 设计，不使用任何特定 agent 的工具名（如 `mcp__*`），所有操作均使用通用描述（如"搜索网页"、"抓取 URL 内容"），因此任何 AI 编码助手都能执行。
 
-| AI 助手 | 支持 |
+| AI 助手 | 状态 |
 |---------|------|
-| Claude Code | ✅ |
-| Codex | ✅ |
-| Gemini CLI | ✅ |
-| Cursor | ✅ |
-| 其他 (37+) | ✅ |
+| Claude Code | ✅ 已验证 |
+| Codex | ✅ 已验证 |
+| 其他（Gemini CLI、Cursor 等） | 🔲 理论兼容，未测试 |
 
 ## 许可证
 
