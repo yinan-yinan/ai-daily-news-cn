@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Daily News - 2026-03-06</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "PingFang SC", "Microsoft YaHei", sans-serif;
+            background: #f0f2f5;
+            color: #1a1a2e;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 24px 16px;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            padding: 32px 24px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 16px;
+            color: white;
+            margin-bottom: 28px;
+            box-shadow: 0 4px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .header h1 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .header .date {
+            font-size: 15px;
+            opacity: 0.85;
+        }
+
+        .header .stats {
+            margin-top: 12px;
+            font-size: 13px;
+            opacity: 0.7;
+        }
+
+        .header-takeaways {
+            text-align: left;
+            padding-left: 24px;
+            margin: 12px auto;
+            max-width: 700px;
+        }
+
+        .header-takeaways li {
+            font-size: 14px;
+            margin-bottom: 8px;
+            opacity: 0.95;
+        }
+
+        /* Tab Navigation */
+        .tab-nav {
+            display: flex;
+            gap: 0;
+            margin-bottom: 24px;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+            border: 1px solid #eee;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 14px 16px;
+            text-align: center;
+            font-size: 15px;
+            font-weight: 600;
+            color: #666;
+            cursor: pointer;
+            border: none;
+            background: white;
+            transition: all 0.2s ease;
+            border-bottom: 3px solid transparent;
+        }
+
+        .tab-btn:hover {
+            background: #f8f9ff;
+            color: #667eea;
+        }
+
+        .tab-btn.active {
+            color: #667eea;
+            background: #f0f3ff;
+            border-bottom-color: #667eea;
+        }
+
+        /* Region Toggle */
+        .region-toggle {
+            display: flex;
+            gap: 0;
+            margin-bottom: 20px;
+            background: #f5f5f5;
+            border-radius: 8px;
+            overflow: hidden;
+            width: fit-content;
+        }
+
+        .region-btn {
+            padding: 8px 20px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            background: transparent;
+            color: #888;
+            transition: all 0.2s ease;
+        }
+
+        .region-btn:hover {
+            color: #555;
+        }
+
+        .region-btn.active-international {
+            background: #3182ce;
+            color: white;
+            border-radius: 8px;
+        }
+
+        .region-btn.active-domestic {
+            background: #e53e3e;
+            color: white;
+            border-radius: 8px;
+        }
+
+        /* Category Section */
+        .category {
+            display: none;
+        }
+
+        .category.active {
+            display: block;
+        }
+
+        /* Region Section */
+        .region-section {
+            display: none;
+        }
+
+        .region-section.active {
+            display: block;
+        }
+
+        /* News Card */
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 18px 20px;
+            margin-bottom: 12px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+            transition: box-shadow 0.2s ease, transform 0.2s ease;
+            border: 1px solid #eee;
+        }
+
+        .card:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+            transform: translateY(-1px);
+        }
+
+        .card-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #1a1a2e;
+            margin-bottom: 6px;
+        }
+
+        .card-title a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .card-title a:hover {
+            color: #667eea;
+        }
+
+        .card-summary {
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        .card-meta {
+            font-size: 12px;
+            color: #999;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .card-meta .source {
+            background: #f5f5f5;
+            padding: 2px 8px;
+            border-radius: 4px;
+            color: #777;
+        }
+
+        .card-meta .source a {
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        .card-meta .source a:hover {
+            text-decoration: underline;
+        }
+
+        /* (takeaways moved to header) */
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 32px;
+            padding: 20px;
+            font-size: 12px;
+            color: #999;
+        }
+
+        /* Responsive */
+        @media (max-width: 640px) {
+            .container { padding: 12px 8px; }
+            .header h1 { font-size: 22px; }
+            .card { padding: 14px 16px; }
+            .tab-btn { font-size: 13px; padding: 12px 8px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <!-- Key Takeaways (Top) -->
+        <div class="header">
+            <h1>&#127919; 今日要点</h1>
+            <ol class="header-takeaways">
+                <li><strong>AI 编程三强鼎立</strong> — Codex 升级云端沙箱、Claude Code 正式 GA、Gemini CLI 开源，开发者工具竞争白热化</li>
+                <li><strong>GPT-5 正式发布</strong> — 推理能力提升 40%，百万 token 上下文，大模型竞争进入新阶段</li>
+                <li><strong>AI 监管全球化</strong> — 欧盟法案生效 + 国内备案简化，监管趋于成熟</li>
+            </ol>
+            <div class="stats">2026 年 3 月 6 日 | 18 条资讯 | 聚焦: Codex / Claude Code / Gemini</div>
+        </div>
+
+        <!-- Category Tabs -->
+        <div class="tab-nav">
+            <button class="tab-btn active" onclick="switchTab('major')">&#128293; 重大新闻</button>
+            <button class="tab-btn" onclick="switchTab('tools')">&#128736;&#65039; 工具产品</button>
+            <button class="tab-btn" onclick="switchTab('industry')">&#128176; 行业动态</button>
+        </div>
+
+        <!-- Region Toggle (international first) -->
+        <div class="region-toggle">
+            <button class="region-btn active-international" id="btn-international" onclick="switchRegion('international')">&#127758; 国外</button>
+            <button class="region-btn" id="btn-domestic" onclick="switchRegion('domestic')">&#127464;&#127475; 国内</button>
+        </div>
+
+        <!-- ==================== MAJOR NEWS ==================== -->
+        <div class="category active" id="cat-major">
+
+            <!-- International (default active) -->
+            <div class="region-section active" id="major-international">
+                <div class="card">
+                    <div class="card-title">
+                        <a href="https://openai.com/index/introducing-codex/" target="_blank">OpenAI Codex 全面升级，支持多文件自主编程和云端沙箱</a>
+                    </div>
+                    <div class="card-summary">Codex CLI 新增云端沙箱执行、多文件并行编辑和自动测试能力，开发者无需离开终端即可完成复杂工程任务。</div>
+                    <div class="card-meta">
+                        <span class="source"><a href="https://openai.com/index/introducing-codex/" target="_blank">OpenAI Blog</a></span>
+                        <span>2026-03-06</span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">
+                        <a href="https://www.anthropic.com/news/claude-code-general-availability" target="_blank">Anthropic 宣布 Claude Code 正式 GA，新增团队协作模式</a>
+                    </div>
+                    <div class="card-summary">Claude Code 正式脱离 Beta，新增 Team 多 Agent 协作、Background Agent 和 Worktree 隔离功能。</div>
+                    <div class="card-meta">
+                        <span class="source"><a href="https://www.anthropic.com/news/claude-code-general-availability" target="_blank">Anthropic News</a></span>
+                        <span>2026-03-06</span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">
+                        <a href="https://blog.google/technology/ai/gemini-cli-developer-tool-launch/" target="_blank">Google 发布 Gemini CLI，开发者终端 AI 助手正式开源</a>
+                    </div>
+                    <div class="card-summary">Gemini CLI 基于 Gemini 2.5 Pro，原生支持 MCP 协议和 100 万 token 上下文，Apache 2.0 协议开源。</div>
+                    <div class="card-meta">
+                        <span class="source"><a href="https://blog.google/technology/ai/gemini-cli-developer-tool-launch/" target="_blank">Google AI Blog</a></span>
+                        <span>2026-03-06</span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">
+                        <a href="https://techcrunch.com/2026/03/06/gpt-5-launch-reasoning/" target="_blank">OpenAI 发布 GPT-5，推理能力提升 40%</a>
+                    </div>
+                    <div class="card-summary">GPT-5 支持 100 万 token 上下文窗口，在复杂推理任务中表现大幅领先前代模型。</div>
+                    <div class="card-meta">
+                        <span class="source"><a href="https://techcrunch.com/2026/03/06/gpt-5-launch-reasoning/" target="_blank">TechCrunch</a></span>
+                        <span>2026-03-06</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Domestic -->
+            <div class="region-section" id="major-domestic">
+                <div class="card">
+                    <div class="card-title">
+                        <a href="https://www.jiqizhixin.com/articles/2026-03-06-ernie-5" target="_blank">百度发布文心一言 5.0，多模态能力全面升级</a>
+                    </div>
+                    <div class="card-summary">文心一言 5.0 在代码生成、数学推理和多模态理解三项基准上超越 GPT-4o，正式开放 API 调用。</div>
+                    <div class="card-meta">
+                        <span class="source"><a href="https://www.jiqizhixin.com/articles/2026-03-06-ernie-5" target="_blank">机器之心</a></span>
+                        <span>2026-03-06</span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">
+                        <a href="https://www.qbitai.com/2026/03/qwen3-72b-open-source.html" target="_blank">阿里通义千问开源 Qwen3-72B，刷新开源模型榜单</a>
+                    </div>
+                    <div class="card-summary">Qwen3-72B 在 MMLU、HumanEval 等主流基准上超越 LLaMA 3.1，支持 128K 上下文窗口。</div>
+                    <div class="card-meta">
+                        <span class="source"><a href="https://www.qbitai.com/2026/03/qwen3-72b-open-source.html" target="_blank">量子位</a></span>
+                        <span>2026-03-06</span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">
+                        <a href="https://36kr.com/p/2026030612345" target="_blank">月之暗面 Kimi 推出深度思考模式，对标 o1</a>
+                    </div>
+                    <div class="card-summary">Kimi 新增 Chain-of-Thought 推理模式，在数学和逻辑推理任务上表现大幅提升，面向全量用户开放。</div>
+                    <div class="card-meta">
+                        <span class="source"><a href="https://36kr.com/p/2026030612345" target="_blank">36氪</a></span>
+                        <span>2026-03-06</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== TOOLS & PRODUCTS ==================== -->
+        <div class="category" id="cat-tools">
+
+            <!-- International (default active) -->
+            <div class="region-section active" id="tools-international">
+                <div class="card">
+                    <div class="card-title">
+                        <a href="https://www.theverge.com/2026/3/6/cursor-background-agent-launch" target="_blank">Cursor 推出 Background Agent，支持后台自主编程</a>
+                    </div>
+                    <div class="card-summary">开发者可以同时运行多个后台 Agent 处理不同编程任务，大幅提升开发效率。</div>
+                    <div class="card-meta">
+                        <span class="source"><a href="https://www.theverge.com/2026/3/6/cursor-background-agent-launch" target="_blank">The Verge</a></span>
+                        <span>2026-03-06</span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">
+                        <a href="https://www.anthropic.com/news/claude-code-hooks-mcp" target="_blank">Claude Code 新增 Hooks 和 MCP Server 支持，自动化工作流更强大</a>
+                    </div>
+                    <div class="card-summary">开发者可通过 Hooks 在工具调用前后执行自定义脚本，MCP Server 支持 Playwright、数据库等扩展能力。</div>
+                    <div class="card-meta">
+                        <span class="source"><a href="https://www.anthropic.com/news/claude-code-hooks-mcp" target="_blank">Anthropic News</a></span>
+                        <span>2026-03-05</span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">
+                        <a href="https://huggingface.co/blog/transformers-v5" target="_blank">Hugging Face 发布 Transformers 5.0，全面支持 MoE</a>
+                    </div>
+                    <div class="card-summary">新版本原生支持混合专家模型训练和推理，降低大模型部署门槛。</div>
+                    <div class="card-meta">
+                        <span class="source"><a href="https://huggingface.co/blog/transformers-v5" target="_blank">Hugging Face Blog</a></span>
+                        <span>2026-03-05</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Domestic -->
+            <div class="region-section" id="tools-domestic">
+                <div class="card">
+                    <div class="card-title">
+                        <a href="https://36kr.com/p/2026030654321" target="_blank">字节跳动发布 Coze 2.0，零代码搭建 AI Agent</a>
+                    </div>
+                    <div class="card-summary">Coze 2.0 新增多 Agent 协作、知识库自动更新功能，面向企业场景免费开放。</div>
+                    <div class="card-meta">
+                        <span class="source"><a href="https://36kr.com/p/2026030654321" target="_blank">36氪</a></span>
+                        <span>2026-03-06</span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">
+                        <a href="https://www.jiqizhixin.com/articles/2026-03-06-autoglm-2" target="_blank">智谱发布 AutoGLM 2.0，手机端 AI Agent 升级</a>
+                    </div>
+                    <div class="card-summary">AutoGLM 2.0 支持跨应用操作、自动填表、智能导航等功能，已适配主流安卓机型。</div>
+                    <div class="card-meta">
+                        <span class="source"><a href="https://www.jiqizhixin.com/articles/2026-03-06-autoglm-2" target="_blank">机器之心</a></span>
+                        <span>2026-03-06</span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">
+                        <a href="https://www.infoq.cn/article/2026-03-baichuan-rag-platform" target="_blank">百川智能推出企业级 RAG 平台，文档问答准确率 95%+</a>
+                    </div>
+                    <div class="card-summary">针对金融、法律场景优化，支持 PDF/Word/Excel 多格式解析，部署方式灵活。</div>
+                    <div class="card-meta">
+                        <span class="source"><a href="https://www.infoq.cn/article/2026-03-baichuan-rag-platform" target="_blank">InfoQ</a></span>
+                        <span>2026-03-05</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== INDUSTRY ==================== -->
+        <div class="category" id="cat-industry">
+
+            <!-- International (default active) -->
+            <div class="region-section active" id="industry-international">
+                <div class="card">
+                    <div class="card-title">
+                        <a href="https://www.technologyreview.com/2026/03/06/eu-ai-act-enforcement/" target="_blank">欧盟 AI 法案正式生效，高风险 AI 系统需强制认证</a>
+                    </div>
+                    <div class="card-summary">首批监管措施覆盖医疗、金融、教育领域，企业需在 6 个月内完成合规审查。</div>
+                    <div class="card-meta">
+                        <span class="source"><a href="https://www.technologyreview.com/2026/03/06/eu-ai-act-enforcement/" target="_blank">MIT Technology Review</a></span>
+                        <span>2026-03-06</span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">
+                        <a href="https://www.cnbc.com/2026/03/05/nvidia-q4-earnings-data-center.html" target="_blank">英伟达 Q4 营收再创新高，数据中心业务增长 85%</a>
+                    </div>
+                    <div class="card-summary">AI 芯片需求持续旺盛，Blackwell 架构 GPU 出货量超预期，股价盘后上涨 8%。</div>
+                    <div class="card-meta">
+                        <span class="source"><a href="https://www.cnbc.com/2026/03/05/nvidia-q4-earnings-data-center.html" target="_blank">CNBC</a></span>
+                        <span>2026-03-05</span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">
+                        <a href="https://techcrunch.com/2026/03/06/anthropic-series-d-funding/" target="_blank">Anthropic 完成 40 亿美元 D 轮融资，加速 Claude 全球部署</a>
+                    </div>
+                    <div class="card-summary">Amazon 领投，估值突破 600 亿美元，资金将用于 Claude Code 企业版和安全研究。</div>
+                    <div class="card-meta">
+                        <span class="source"><a href="https://techcrunch.com/2026/03/06/anthropic-series-d-funding/" target="_blank">TechCrunch</a></span>
+                        <span>2026-03-06</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Domestic -->
+            <div class="region-section" id="industry-domestic">
+                <div class="card">
+                    <div class="card-title">
+                        <a href="https://36kr.com/p/2026030698765" target="_blank">智谱 AI 完成 10 亿美元 C 轮融资</a>
+                    </div>
+                    <div class="card-summary">本轮由社保基金领投，估值达到 150 亿美元，资金将用于大模型基础设施建设。</div>
+                    <div class="card-meta">
+                        <span class="source"><a href="https://36kr.com/p/2026030698765" target="_blank">36氪</a></span>
+                        <span>2026-03-06</span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">
+                        <a href="https://www.qbitai.com/2026/03/ai-filing-new-rules.html" target="_blank">工信部发布大模型备案新规，简化审批流程</a>
+                    </div>
+                    <div class="card-summary">新规将备案周期从 60 天缩短至 30 天，支持企业快速上线 AI 服务。</div>
+                    <div class="card-meta">
+                        <span class="source"><a href="https://www.qbitai.com/2026/03/ai-filing-new-rules.html" target="_blank">量子位</a></span>
+                        <span>2026-03-06</span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">
+                        <a href="https://www.jiqizhixin.com/articles/2026-03-05-tencent-hunyuan-api" target="_blank">腾讯混元大模型日均调用量突破 5 亿次</a>
+                    </div>
+                    <div class="card-summary">混元大模型已深度集成微信、QQ、腾讯文档等内部产品，企业级 API 调用量环比增长 120%。</div>
+                    <div class="card-meta">
+                        <span class="source"><a href="https://www.jiqizhixin.com/articles/2026-03-05-tencent-hunyuan-api" target="_blank">机器之心</a></span>
+                        <span>2026-03-05</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>Generated by AI Daily News Skill | Data sourced from multiple outlets</p>
+            <p>Focus: Codex / Claude Code / Gemini</p>
+            <p>Generated at 2026-03-06 09:00 CST</p>
+        </div>
+
+    </div>
+
+    <script>
+        let currentCategory = 'major';
+        let currentRegion = 'international';
+
+        function switchTab(cat) {
+            currentCategory = cat;
+
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            document.querySelectorAll('.category').forEach(el => el.classList.remove('active'));
+            document.getElementById('cat-' + cat).classList.add('active');
+
+            applyRegion();
+        }
+
+        function switchRegion(region) {
+            currentRegion = region;
+
+            const btnInt = document.getElementById('btn-international');
+            const btnDom = document.getElementById('btn-domestic');
+            btnInt.className = 'region-btn' + (region === 'international' ? ' active-international' : '');
+            btnDom.className = 'region-btn' + (region === 'domestic' ? ' active-domestic' : '');
+
+            applyRegion();
+        }
+
+        function applyRegion() {
+            const cat = document.getElementById('cat-' + currentCategory);
+            cat.querySelectorAll('.region-section').forEach(el => el.classList.remove('active'));
+
+            const target = document.getElementById(currentCategory + '-' + currentRegion);
+            if (target) target.classList.add('active');
+        }
+    </script>
+</body>
+</html>
